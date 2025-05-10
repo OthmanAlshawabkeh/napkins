@@ -19,7 +19,7 @@ const nextConfig = {
     return config;
   },
   // Ensure proper asset handling for WebContainer environment with leading slash
-  assetPrefix: './',
+  assetPrefix: '/',
   // Improve hydration reliability
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons']

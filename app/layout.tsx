@@ -59,12 +59,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className='h-full'>
-      <head>
-        {/* Move PlausibleProvider to client-side only */}
-        {typeof window !== 'undefined' && (
-          <PlausibleProvider domain='napkins.dev' />
-        )}
-      </head>
+      <PlausibleProvider domain='napkins.dev' />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col font-sans`}
       >
