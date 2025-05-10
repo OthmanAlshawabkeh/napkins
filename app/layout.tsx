@@ -6,7 +6,12 @@ import Link from 'next/link';
 import Logo from '@/public/biglogo.svg';
 import { Button } from '@/components/ui/button';
 import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
-import PlausibleProvider from 'next-plausible';
+import dynamic from 'next/dynamic';
+
+// Dynamically import PlausibleProvider to avoid hydration issues
+const PlausibleProvider = dynamic(() => import('next-plausible'), {
+  ssr: false
+});
 
 let title = 'Napkins.dev – Screenshot to code';
 let description = 'Generate your next app with a screenshot using Llama 4';
@@ -55,7 +60,10 @@ export default function RootLayout({
   return (
     <html lang='en' className='h-full'>
       <head>
-        <PlausibleProvider domain='napkins.dev' />
+        {/* Move PlausibleProvider to client-side only */}
+        {typeof window !== 'undefined' && (
+          <PlausibleProvider domain='napkins.dev' />
+        )}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full flex flex-col font-sans`}
@@ -63,7 +71,7 @@ export default function RootLayout({
         <header className='sm:mx-10 mx-4 mt-5'>
           <div className='flex items-center justify-between'>
             <Link href='/'>
-              <Image src={Logo} alt='Logo' width={400} height={50} />
+              <Image src={Logo} alt='Logo' width={400} height={50} priority />
             </Link>
             <Button
               asChild
